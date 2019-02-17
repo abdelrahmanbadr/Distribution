@@ -30,33 +30,32 @@ func (self *DistributionAlgorithm) BasicDistribution() {
 
 //problem 2
 func (self *DistributionAlgorithm) FairDistribution() {
-	//1- make all the coaches have the same count of students first
+
 	mp := make([]int, len(self.Coaches))
-	largestStudentsCount := 0
+
 	for key, coach := range self.Coaches {
 		mp[key] = coach.GetStudentsCount()
-		if mp[key] > largestStudentsCount {
-			largestStudentsCount = mp[key]
-		}
 	}
-	sort.Sort(sort.IntSlice(mp))
-	s := MakeFairDistribution(mp, make([]int, len(mp)), len(self.Students))
-	fmt.Println(s)
-	//for _, coach := range self.Coaches {
-	//	//a = append(a[:i], a[i+1:]...)
-	//
-	//}
+
+	//distribution := MakeFairDistribution(mp, make([]int, len(mp)), len(self.Students))
+	//studentIndex := 0
+	for _, coach := range self.Coaches {
+		fmt.Println(coach.GetStudentsCount())
+		//for i := 0; i < distribution[key]; i++ {
+		//	coach.Students = append(coach.Students, self.Students[studentIndex])
+		//	studentIndex++
+		//}
+		//fmt.Println(len(coach.Students))
+	}
 
 }
 
 //arr should be sorted array
 //@todo refactore this shit
 func MakeFairDistribution(arr []int, result []int, number int) []int {
-
+	sort.Sort(sort.IntSlice(arr))
 	equalSmallestNumbers := 1
 	diffrenceBetweenSmallestNumberAndTheNextOne := 0
-	//secondSmallestNumber := arr[0]
-	//mp := make([]int, len(arr))
 
 	for i := 1; i < len(arr); i++ {
 		if arr[i] > arr[i-1] {
@@ -107,11 +106,11 @@ func MakeFairDistribution(arr []int, result []int, number int) []int {
 func BasicDistribution(array []int, result []int, number int) []int {
 
 	arraylength := len(array)
-	eq := number / arraylength
+	division := number / arraylength
 
 	for i := 0; i < arraylength; i++ {
-		result[i] = result[i] + eq
-		number = number - eq
+		result[i] = result[i] + division
+		number = number - division
 	}
 
 	if number > 0 {

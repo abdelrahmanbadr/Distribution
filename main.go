@@ -1,30 +1,32 @@
 package main
 
 import (
-	"fmt"
 	"github.com/icrowley/fake"
-	"sort"
 	"student-distribution/models"
 	"student-distribution/services"
 )
 
 func main() {
-	arr := []int{0, 0, 0}
-
-	sort.Sort(sort.IntSlice(arr))
-	result := make([]int, len(arr))
-	x := services.BasicDistribution(arr, result, 7)
-	fmt.Println(x)
-	//coaches := fakeCoaches(3)
-	//students := fakeStudents(10)
-	//DistributionAlgorithm := services.DistributionAlgorithm{}
-	//DistributionAlgorithm.Coaches = coaches
-	//DistributionAlgorithm.Students = students
-	//DistributionAlgorithm.Coaches[0].Students = fakeStudents(7)
-	//DistributionAlgorithm.Coaches[1].Students = fakeStudents(6)
-	//DistributionAlgorithm.Coaches[2].Students = fakeStudents(6)
+	//arr := []int{0, 0, 0}
 	//
-	//DistributionAlgorithm.FairDistribution()
+	//sort.Sort(sort.IntSlice(arr))
+
+	//x := services.BasicDistribution(arr, result, 7)
+	//fmt.Println(x)
+	coaches := fakeCoaches(3)
+	students := fakeStudents(10)
+	DistributionAlgorithm := services.DistributionAlgorithm{}
+	DistributionAlgorithm.Coaches = coaches
+	DistributionAlgorithm.Students = students
+	DistributionAlgorithm.Coaches[2].Students = fakeStudents(6)
+	DistributionAlgorithm.Coaches[1].Students = fakeStudents(7)
+	DistributionAlgorithm.Coaches[0].Students = fakeStudents(7)
+
+	//
+	DistributionAlgorithm.FairDistribution()
+	//fmt.Println(len(DistributionAlgorithm.Coaches[0].Students))
+	//fmt.Println(len(DistributionAlgorithm.Coaches[1].Students))
+	//fmt.Println(len(DistributionAlgorithm.Coaches[2].Students))
 	//fmt.Println(students[0].Coaches[0].Name)
 	//fmt.Println(students[1].Coaches[0].Name)
 	//fmt.Println(students[2].Coaches[0].Name)
