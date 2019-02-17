@@ -8,3 +8,6 @@ type Student struct {
 func (student *Student) AppendCoach(coach *Coach) {
 
 }
+func (student *Student) GetCoachesCount() int {
+	return len(student.Coaches)
+}
