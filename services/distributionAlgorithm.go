@@ -11,12 +11,13 @@ type DistributionAlgorithm struct {
 }
 
 func (self *DistributionAlgorithm) BasicDistribution() {
-
-	studentsPerCoach := len(self.Students) / len(self.Coaches)
+	studentdCount := len(self.Students)
+	coachesCount := len(self.Coaches)
+	studentsPerCoach := studentdCount / coachesCount
 	coachIndex := 0
 	for key, student := range self.Students {
 
-		if key > 0 && key%studentsPerCoach == 0 && coachIndex < len(self.Coaches)-1 {
+		if key > 0 && key%studentsPerCoach == 0 && coachIndex < coachesCount-1 {
 
 			coachIndex++;
 			fmt.Println(coachIndex)
