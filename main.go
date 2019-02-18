@@ -1,21 +1,23 @@
 package main
 
 import (
-	"fmt"
 	"github.com/icrowley/fake"
-	"sort"
 	"student-distribution/models"
+	"student-distribution/services"
 )
 
 func main() {
 
 	coaches := fakeCoaches(3)
-	coaches[0].Students = fakeStudents(9)
-	coaches[1].Students = fakeStudents(5)
+	students := fakeStudents(11)
+	coaches[0].Students = fakeStudents(6)
+	coaches[1].Students = fakeStudents(7)
 	coaches[2].Students = fakeStudents(6)
-	x := models.Coaches(coaches)
-	sort.Sort(sort.Interface(x))
-	fmt.Println(x[1].GetStudentsCount())
+	DistributionAlgorithm := services.DistributionAlgorithm{}
+	DistributionAlgorithm.Coaches = coaches
+	DistributionAlgorithm.Students = students
+	DistributionAlgorithm.FairDistribution()
+
 	//arr := []int{0, 0, 0}
 	//
 	//sort.Sort(sort.IntSlice(arr))
@@ -45,14 +47,14 @@ func main() {
 	//fmt.Println(students[9].Coaches[0].Name)
 
 }
-func fakeStudents(studentNumber int) []*models.Student {
+func fakeStudents(studentNumber int) models.Students {
 	students := []*models.Student{}
 	for i := 1; i <= studentNumber; i++ {
 		students = append(students, &models.Student{Name: fake.FirstName()})
 	}
 	return students
 }
-func fakeCoaches(coachesNumber int) []*models.Coach {
+func fakeCoaches(coachesNumber int) models.Coaches {
 	coaches := []*models.Coach{}
 	for i := 1; i <= coachesNumber; i++ {
 		coaches = append(coaches, &models.Coach{Name: fake.FirstName()})
