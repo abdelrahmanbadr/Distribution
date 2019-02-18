@@ -7,8 +7,8 @@ import (
 )
 
 type DistributionAlgorithm struct {
-	Students []*models.Student
-	Coaches  []*models.Coach
+	Students models.Students
+	Coaches  models.Coaches
 }
 
 //problem 1
@@ -33,19 +33,20 @@ func (self *DistributionAlgorithm) FairDistribution() {
 
 	mp := make([]int, len(self.Coaches))
 
+	sort.Sort(sort.Interface(self.Coaches))
 	for key, coach := range self.Coaches {
 		mp[key] = coach.GetStudentsCount()
 	}
 
-	//distribution := MakeFairDistribution(mp, make([]int, len(mp)), len(self.Students))
-	//studentIndex := 0
-	for _, coach := range self.Coaches {
-		fmt.Println(coach.GetStudentsCount())
-		//for i := 0; i < distribution[key]; i++ {
-		//	coach.Students = append(coach.Students, self.Students[studentIndex])
-		//	studentIndex++
-		//}
-		//fmt.Println(len(coach.Students))
+	distribution := MakeFairDistribution(mp, make([]int, len(mp)), len(self.Students))
+	studentIndex := 0
+	for key, coach := range self.Coaches {
+
+		for i := 0; i < distribution[key]; i++ {
+			coach.Students = append(coach.Students, self.Students[studentIndex])
+			studentIndex++
+		}
+		fmt.Println(len(coach.Students))
 	}
 
 }
@@ -53,7 +54,7 @@ func (self *DistributionAlgorithm) FairDistribution() {
 //arr should be sorted array
 //@todo refactore this shit
 func MakeFairDistribution(arr []int, result []int, number int) []int {
-	sort.Sort(sort.IntSlice(arr))
+
 	equalSmallestNumbers := 1
 	diffrenceBetweenSmallestNumberAndTheNextOne := 0
 

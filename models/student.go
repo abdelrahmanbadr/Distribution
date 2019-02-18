@@ -1,5 +1,6 @@
 package models
 
+type Students []*Student
 type Student struct {
 	Name    string   `json:name`
 	Coaches []*Coach `json:coaches`
