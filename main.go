@@ -10,10 +10,10 @@ import (
 func main() {
 	//6,7,8,12
 	coaches := fakeCoaches(3)
-	students := fakeStudents(4)
-	coaches[0].Students = fakeStudents(0)
-	coaches[1].Students = fakeStudents(0)
-	coaches[2].Students = fakeStudents(0)
+	students := fakeStudents(10)
+	coaches[0].Students = fakeStudents(1)
+	coaches[1].Students = fakeStudents(2)
+	coaches[2].Students = fakeStudents(10)
 	//coaches[3].Students = fakeStudents(0)
 	DistributionAlgorithm := services.DistributionAlgorithm{}
 	DistributionAlgorithm.Coaches = coaches
