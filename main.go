@@ -1,22 +1,29 @@
 package main
 
 import (
+	"fmt"
 	"github.com/icrowley/fake"
 	"student-distribution/models"
 	"student-distribution/services"
 )
 
 func main() {
-
+	//6,7,8,12
 	coaches := fakeCoaches(3)
-	students := fakeStudents(11)
-	coaches[0].Students = fakeStudents(6)
-	coaches[1].Students = fakeStudents(7)
-	coaches[2].Students = fakeStudents(6)
+	students := fakeStudents(4)
+	coaches[0].Students = fakeStudents(0)
+	coaches[1].Students = fakeStudents(0)
+	coaches[2].Students = fakeStudents(0)
+	//coaches[3].Students = fakeStudents(0)
 	DistributionAlgorithm := services.DistributionAlgorithm{}
 	DistributionAlgorithm.Coaches = coaches
 	DistributionAlgorithm.Students = students
 	DistributionAlgorithm.FairDistribution()
+
+	fmt.Println(coaches[0].GetStudentsCount())
+	fmt.Println(coaches[1].GetStudentsCount())
+	fmt.Println(coaches[2].GetStudentsCount())
+	//fmt.Println(coaches[3].GetStudentsCount())
 
 	//arr := []int{0, 0, 0}
 	//
