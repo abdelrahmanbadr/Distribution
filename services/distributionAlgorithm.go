@@ -12,7 +12,6 @@ type DistributionAlgorithm struct {
 }
 
 //problem 1
-
 func (self *DistributionAlgorithm) BasicDistribution() {
 
 	sudentsCount := len(self.Students)
@@ -43,39 +42,39 @@ func (self *DistributionAlgorithm) BasicDistribution() {
 func (self *DistributionAlgorithm) FairDistribution() {
 	coachesNumber := len(self.Coaches)
 	studentsNumber := len(self.Students)
-	totalNumber := studentsNumber
+
 	sort.Sort(sort.Interface(self.Coaches))
 	for _, coach := range self.Coaches {
-		totalNumber += coach.GetStudentsCount()
+		studentsNumber += coach.GetStudentsCount()
 	}
 
-	division := Divide(totalNumber, coachesNumber)
+	division := Divide(studentsNumber, coachesNumber)
 
 	counter := 0
+
 	for _, coach := range self.Coaches {
 
 		if coach.GetStudentsCount() >= division {
-			totalNumber -= coach.GetStudentsCount()
+			studentsNumber -= coach.GetStudentsCount()
 			continue
 		}
 		counter++
 	}
-
-	division = Divide(totalNumber, counter)
+	//remain studentsNumber
+	division = Divide(studentsNumber, counter)
 	studentsIndex := 0
 	for j := 0; j < counter; j++ {
 		studentsNumberForCoach := division - self.Coaches[j].GetStudentsCount()
 
 		//last key will take the change
 		if j == counter-1 {
-			studentsNumberForCoach = studentsNumber - studentsIndex
+			studentsNumberForCoach = len(self.Students) - studentsIndex
 		}
 
 		for i := 0; i < studentsNumberForCoach; i++ {
 			self.Coaches[j].Students = append(self.Coaches[j].Students, self.Students[studentsIndex])
 			studentsIndex++
 		}
-
 	}
 
 }

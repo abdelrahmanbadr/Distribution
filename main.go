@@ -10,7 +10,7 @@ import (
 func main() {
 	//6,7,8,12
 	coaches := fakeCoaches(3)
-	students := fakeStudents(10)
+	students := fakeStudents(11)
 	coaches[0].Students = fakeStudents(1)
 	coaches[1].Students = fakeStudents(2)
 	coaches[2].Students = fakeStudents(10)
