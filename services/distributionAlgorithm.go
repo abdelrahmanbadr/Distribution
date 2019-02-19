@@ -37,15 +37,6 @@ func (self *DistributionAlgorithm) BasicDistribution() {
 		student.Coaches = append(student.Coaches, coach)
 		studentIndex++
 	}
-	//for key, student := range self.Students {
-	//
-	//	if key > 0 && key%studentsPerCoach == 0 && coachIndex < coachesCount-1 {
-	//		coachIndex++;
-	//	}
-	//	student.Coaches = append(student.Coaches, self.Coaches[coachIndex])
-	//	self.Coaches[coachIndex].Students = append(self.Coaches[coachIndex].Students, student)
-	//
-	//}
 }
 
 //problem 2
@@ -57,7 +48,7 @@ func (self *DistributionAlgorithm) FairDistribution() {
 	for _, coach := range self.Coaches {
 		totalNumber += coach.GetStudentsCount()
 	}
-	//fmt.Println(totalNumber)
+
 	division := Divide(totalNumber, coachesNumber)
 
 	counter := 0
@@ -69,7 +60,7 @@ func (self *DistributionAlgorithm) FairDistribution() {
 		}
 		counter++
 	}
-	//fmt.Println(totalNumber)
+
 	division = Divide(totalNumber, counter)
 	studentsIndex := 0
 	for j := 0; j < counter; j++ {
