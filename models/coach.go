@@ -22,3 +22,7 @@ func (c Coaches) Less(i, j int) bool {
 func (c Coaches) Swap(i, j int) {
 	c[i], c[j] = c[j], c[i]
 }
+
+func (coach *Coach) AddStudent(student *Student) {
+	coach.Students = append(coach.Students, student)
+}
