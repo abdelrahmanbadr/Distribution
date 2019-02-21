@@ -45,7 +45,7 @@ func (self *distributionAlgorithm) FairDistribution() {
 		self.BasicDistribution()
 		return
 	}
-	studentsCount := self.CountCoachesStudents() + self.StudentsCount
+	studentsCount := self.getAllCoachesStudentsCount() + self.StudentsCount
 
 	studentsPerCoach := common.RoundDivide(studentsCount, self.CoachesCount)
 
@@ -88,7 +88,7 @@ func (self *distributionAlgorithm) AssignStudentForCoach(student *models.Student
 	student.AppendCoach(coach)
 }
 
-func (self *distributionAlgorithm) CountCoachesStudents() int {
+func (self *distributionAlgorithm) getAllCoachesStudentsCount() int {
 	studentCount := 0
 	for _, coach := range self.Coaches {
 		studentCount += coach.GetStudentsCount()
