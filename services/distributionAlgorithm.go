@@ -2,6 +2,7 @@ package services
 
 import (
 	"sort"
+	"student-distribution/interfaces"
 	"student-distribution/models"
 )
 
@@ -12,7 +13,7 @@ type distributionAlgorithm struct {
 	StudentsCount int
 }
 
-func NewDistributionAlgorithm(students models.Students, coaches models.Coaches) *distributionAlgorithm {
+func NewDistributionAlgorithm(students models.Students, coaches models.Coaches) interfaces.DistributionInterface {
 	sort.Sort(sort.Interface(coaches))
 	return &distributionAlgorithm{
 		Students:      students,
@@ -40,7 +41,7 @@ func (self *distributionAlgorithm) BasicDistribution() {
 }
 
 //problem 2
-func (self *distributionAlgorithm) FairDistribution() {
+func (self *distributionAlgorithm) DistributeStudents() {
 
 	coachIndex := 0
 
