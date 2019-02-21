@@ -2,7 +2,6 @@ package services
 
 import (
 	"sort"
-	"student-distribution/common"
 	"student-distribution/models"
 )
 
@@ -35,66 +34,6 @@ func (self *distributionAlgorithm) BasicDistribution() {
 }
 
 //problem 2
-func (self *distributionAlgorithm) FairDistributionOld() {
-
-	//if coaches numbers = 1 or if first coach students + incomming students =< second coach so return
-	if self.CoachesCount == 1 || (self.CoachesCount > 2 && (self.Coaches[0].GetStudentsCount()+self.StudentsCount) < self.Coaches[1].GetStudentsCount()) {
-		//first coach will take all students
-		self.CoachesCount = 1
-		self.BasicDistribution()
-		return
-	}
-	studentsCount := self.getAllCoachesStudentsCount() + self.StudentsCount
-
-	studentsPerCoach := common.RoundDivide(studentsCount, self.CoachesCount)
-
-	//counter for coaches
-	unSaturatedCoachesCount := 0
-
-	for _, coach := range self.Coaches {
-
-		if coach.GetStudentsCount() >= studentsPerCoach {
-			studentsCount -= coach.GetStudentsCount()
-			continue
-		}
-		unSaturatedCoachesCount++
-	}
-
-	studentsPerCoach = common.RoundDivide(studentsCount, unSaturatedCoachesCount)
-
-	studentsIndex := 0
-
-	for j := 0; j < unSaturatedCoachesCount; j++ {
-		coach := self.Coaches[j]
-
-		studentsCountPerCoach := studentsPerCoach - coach.GetStudentsCount()
-
-		//last key will take the change
-		if j == unSaturatedCoachesCount-1 {
-			studentsCountPerCoach = len(self.Students) - studentsIndex
-		}
-
-		for i := 0; i < studentsCountPerCoach; i++ {
-			self.assignStudentForCoach(self.Students[studentsIndex], coach)
-			studentsIndex++
-		}
-	}
-
-}
-
-func (self *distributionAlgorithm) assignStudentForCoach(student *models.Student, coach *models.Coach) {
-	coach.AddStudent(student)
-	student.AppendCoach(coach)
-}
-
-func (self *distributionAlgorithm) getAllCoachesStudentsCount() int {
-	studentCount := 0
-	for _, coach := range self.Coaches {
-		studentCount += coach.GetStudentsCount()
-	}
-	return studentCount
-}
-
 func (self *distributionAlgorithm) FairDistribution() {
 
 	coachIndex := 0
@@ -120,6 +59,63 @@ func (self *distributionAlgorithm) FairDistribution() {
 	}
 }
 
-//func (self *distributionAlgorithm) callback(){
+//problem 2
+//func (self *distributionAlgorithm) FairDistributionOld() {
+//
+//	//if coaches numbers = 1 or if first coach students + incomming students =< second coach so return
+//	if self.CoachesCount == 1 || (self.CoachesCount > 2 && (self.Coaches[0].GetStudentsCount()+self.StudentsCount) < self.Coaches[1].GetStudentsCount()) {
+//		//first coach will take all students
+//		self.CoachesCount = 1
+//		self.BasicDistribution()
+//		return
+//	}
+//	studentsCount := self.getAllCoachesStudentsCount() + self.StudentsCount
+//
+//	studentsPerCoach := common.RoundDivide(studentsCount, self.CoachesCount)
+//
+//	//counter for coaches
+//	unSaturatedCoachesCount := 0
+//
+//	for _, coach := range self.Coaches {
+//
+//		if coach.GetStudentsCount() >= studentsPerCoach {
+//			studentsCount -= coach.GetStudentsCount()
+//			continue
+//		}
+//		unSaturatedCoachesCount++
+//	}
+//
+//	studentsPerCoach = common.RoundDivide(studentsCount, unSaturatedCoachesCount)
+//
+//	studentsIndex := 0
+//
+//	for j := 0; j < unSaturatedCoachesCount; j++ {
+//		coach := self.Coaches[j]
+//
+//		studentsCountPerCoach := studentsPerCoach - coach.GetStudentsCount()
+//
+//		//last key will take the change
+//		if j == unSaturatedCoachesCount-1 {
+//			studentsCountPerCoach = len(self.Students) - studentsIndex
+//		}
+//
+//		for i := 0; i < studentsCountPerCoach; i++ {
+//			self.assignStudentForCoach(self.Students[studentsIndex], coach)
+//			studentsIndex++
+//		}
+//	}
 //
 //}
+
+//
+//func (self *distributionAlgorithm) getAllCoachesStudentsCount() int {
+//	studentCount := 0
+//	for _, coach := range self.Coaches {
+//		studentCount += coach.GetStudentsCount()
+//	}
+//	return studentCount
+//}
+func (self *distributionAlgorithm) assignStudentForCoach(student *models.Student, coach *models.Coach) {
+	coach.AddStudent(student)
+	student.AppendCoach(coach)
+}
