@@ -9,15 +9,16 @@ import (
 
 func main() {
 	//6,7,8,12
-	coaches := fakeCoaches(3)
-	students := fakeStudents(6)
+	//test()
+	coaches := fakeCoaches(1)
+	students := fakeStudents(5)
 
 	distributionAlgorithm := services.NewDistributionAlgorithm(students, coaches)
-	distributionAlgorithm.FairDistribution()
+	distributionAlgorithm.BasicDistribution()
 
 	fmt.Println(coaches[0].GetStudentsCount())
-	fmt.Println(coaches[1].GetStudentsCount())
-	fmt.Println(coaches[2].GetStudentsCount())
+	//fmt.Println(coaches[1].GetStudentsCount())
+	//fmt.Println(coaches[2].GetStudentsCount())
 
 }
 func fakeStudents(studentNumber int) models.Students {
@@ -33,4 +34,7 @@ func fakeCoaches(coachesNumber int) models.Coaches {
 		coaches = append(coaches, &models.Coach{Name: fake.FirstName()})
 	}
 	return coaches
+}
+func test(){
+	fmt.Println("###",4%3)
 }

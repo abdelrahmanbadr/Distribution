@@ -26,22 +26,10 @@ func NewDistributionAlgorithm(students models.Students, coaches models.Coaches) 
 //problem 1
 func (self *distributionAlgorithm) BasicDistribution() {
 
-	studentsPerCoach := common.RoundDivide(self.StudentsCount, self.CoachesCount)
 	studentsIndex := 0
-
-	for _, coach := range self.Coaches {
-
-		for i := 0; i < studentsPerCoach; i++ {
-			student := self.Students[studentsIndex]
-			coach.Students = append(coach.Students, student)
-			student.Coaches = append(student.Coaches, coach)
-			studentsIndex++
-		}
-	}
-	remainStudents := self.StudentsCount - studentsIndex
-	//if remainStudents > 0
-	for i := 0; i < remainStudents; i++ {
-		coach := self.Coaches[i]
+	for i := 0; i < self.StudentsCount; i++ {
+		coachIndex := i % self.CoachesCount
+		coach := self.Coaches[coachIndex]
 		self.AssignStudentForCoach(self.Students[studentsIndex], coach)
 		studentsIndex++
 	}
@@ -53,7 +41,8 @@ func (self *distributionAlgorithm) FairDistribution() {
 	//if coaches numbers = 1 or if first coach students + incomming students =< second coach so return
 	if self.CoachesCount == 1 || (self.CoachesCount > 2 && (self.Coaches[0].GetStudentsCount()+self.StudentsCount) < self.Coaches[1].GetStudentsCount()) {
 		//first coach will take all students
-		self.AssignAllStudentsForFirstCoach()
+		self.CoachesCount = 1
+		self.BasicDistribution()
 		return
 	}
 	studentsCount := self.CountCoachesStudents() + self.StudentsCount

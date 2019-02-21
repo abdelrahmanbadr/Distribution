@@ -2,7 +2,6 @@ package common
 
 import (
 	"math"
-	"student-distribution/models"
 )
 
 func RoundDivide(num1, num2 int) int {
@@ -13,4 +12,3 @@ func FloorDivide(num1, num2 int) int {
 
 	return int(math.Floor(float64(num1) / float64(num2)))
 }
-
