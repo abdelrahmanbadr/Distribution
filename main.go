@@ -17,7 +17,7 @@ func main() {
 	coaches[2].Students = fakeStudents(7)
 	coaches[3].Students = fakeStudents(7)
 	distributionAlgorithm := services.NewDistributionAlgorithm(students, coaches)
-	distributionAlgorithm.Test()
+	distributionAlgorithm.FairDistribution()
 
 	fmt.Println(coaches[0].GetStudentsCount())
 	fmt.Println(coaches[1].GetStudentsCount())
