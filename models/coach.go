@@ -4,11 +4,9 @@ type Coaches []*Coach
 type Coach struct {
 	Name     string     `json:name`
 	Students []*Student `json:students`
+	Capacity int        `json:capacity`
 }
 
-func (coach *Coach) AppendStudent(student *Student) {
-	//a = append(a, 4)
-}
 func (coach *Coach) GetStudentsCount() int {
 	return len(coach.Students)
 }
