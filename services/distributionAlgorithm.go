@@ -26,17 +26,16 @@ func NewDistributionAlgorithm(students models.Students, coaches models.Coaches) 
 //problem 1
 func (self *distributionAlgorithm) BasicDistribution() {
 
-	studentsIndex := 0
-	for i := 0; i < self.StudentsCount; i++ {
-		coachIndex := i % self.CoachesCount
+	for studentIndex, student := range self.Students {
+		coachIndex := studentIndex % self.CoachesCount
 		coach := self.Coaches[coachIndex]
-		self.AssignStudentForCoach(self.Students[studentsIndex], coach)
-		studentsIndex++
+		self.assignStudentForCoach(student, coach)
 	}
+
 }
 
 //problem 2
-func (self *distributionAlgorithm) FairDistribution() {
+func (self *distributionAlgorithm) FairDistributionOld() {
 
 	//if coaches numbers = 1 or if first coach students + incomming students =< second coach so return
 	if self.CoachesCount == 1 || (self.CoachesCount > 2 && (self.Coaches[0].GetStudentsCount()+self.StudentsCount) < self.Coaches[1].GetStudentsCount()) {
@@ -76,14 +75,14 @@ func (self *distributionAlgorithm) FairDistribution() {
 		}
 
 		for i := 0; i < studentsCountPerCoach; i++ {
-			self.AssignStudentForCoach(self.Students[studentsIndex], coach)
+			self.assignStudentForCoach(self.Students[studentsIndex], coach)
 			studentsIndex++
 		}
 	}
 
 }
 
-func (self *distributionAlgorithm) AssignStudentForCoach(student *models.Student, coach *models.Coach) {
+func (self *distributionAlgorithm) assignStudentForCoach(student *models.Student, coach *models.Coach) {
 	coach.AddStudent(student)
 	student.AppendCoach(coach)
 }
@@ -95,3 +94,32 @@ func (self *distributionAlgorithm) getAllCoachesStudentsCount() int {
 	}
 	return studentCount
 }
+
+func (self *distributionAlgorithm) FairDistribution() {
+
+	coachIndex := 0
+
+	for _, student := range self.Students {
+
+		coach := self.Coaches[coachIndex]
+		self.assignStudentForCoach(student, coach)
+		if coachIndex != self.CoachesCount-1 {
+
+			nextCoach := self.Coaches[coachIndex+1]
+			if coach.GetStudentsCount() > nextCoach.GetStudentsCount() {
+				coachIndex++
+			} else if coachIndex != 0 {
+				coachIndex--
+			}
+
+		} else {
+
+			coachIndex = 0
+		}
+
+	}
+}
+
+//func (self *distributionAlgorithm) callback(){
+//
+//}

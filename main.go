@@ -9,20 +9,20 @@ import (
 
 func main() {
 	//6,7,8,12
-	coaches := fakeCoaches(3)
+	coaches := fakeCoaches(4)
 	students := fakeStudents(6)
 
-	coaches[0].Students = fakeStudents(10)
-	coaches[1].Students = fakeStudents(14)
-	coaches[2].Students = fakeStudents(3)
-	//coaches[3].Students = fakeStudents(0)
+	coaches[0].Students = fakeStudents(5)
+	coaches[1].Students = fakeStudents(6)
+	coaches[2].Students = fakeStudents(7)
+	coaches[3].Students = fakeStudents(7)
 	distributionAlgorithm := services.NewDistributionAlgorithm(students, coaches)
-	distributionAlgorithm.FairDistribution()
+	distributionAlgorithm.Test()
 
 	fmt.Println(coaches[0].GetStudentsCount())
 	fmt.Println(coaches[1].GetStudentsCount())
 	fmt.Println(coaches[2].GetStudentsCount())
-	//fmt.Println(coaches[3].GetStudentsCount())
+	fmt.Println(coaches[3].GetStudentsCount())
 
 	//arr := []int{0, 0, 0}
 	//
