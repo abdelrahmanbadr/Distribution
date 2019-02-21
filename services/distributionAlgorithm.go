@@ -1,8 +1,8 @@
 package services
 
 import (
-	"math"
 	"sort"
+	"student-distribution/common"
 	"student-distribution/models"
 )
 
@@ -26,7 +26,7 @@ func NewDistributionAlgorithm(students models.Students, coaches models.Coaches) 
 //problem 1
 func (self *distributionAlgorithm) BasicDistribution() {
 
-	studentsPerCoach := RoundDivide(self.StudentsCount, self.CoachesCount)
+	studentsPerCoach := common.RoundDivide(self.StudentsCount, self.CoachesCount)
 	studentsIndex := 0
 
 	for _, coach := range self.Coaches {
@@ -50,18 +50,15 @@ func (self *distributionAlgorithm) BasicDistribution() {
 //problem 2
 func (self *distributionAlgorithm) FairDistribution() {
 
-	//if coaches numbers = 1
-	//or if first coach students + incomming students =< second coach so return
+	//if coaches numbers = 1 or if first coach students + incomming students =< second coach so return
 	if self.CoachesCount == 1 || (self.CoachesCount > 2 && (self.Coaches[0].GetStudentsCount()+self.StudentsCount) < self.Coaches[1].GetStudentsCount()) {
 		//first coach will take all students
-
 		self.AssignAllStudentsForFirstCoach()
-
 		return
 	}
 	studentsCount := self.CountCoachesStudents() + self.StudentsCount
 
-	studentsPerCoach := RoundDivide(studentsCount, self.CoachesCount)
+	studentsPerCoach := common.RoundDivide(studentsCount, self.CoachesCount)
 
 	//counter for coaches
 	unSaturatedCoachesCount := 0
@@ -75,7 +72,7 @@ func (self *distributionAlgorithm) FairDistribution() {
 		unSaturatedCoachesCount++
 	}
 
-	studentsPerCoach = RoundDivide(studentsCount, unSaturatedCoachesCount)
+	studentsPerCoach = common.RoundDivide(studentsCount, unSaturatedCoachesCount)
 
 	studentsIndex := 0
 
@@ -97,14 +94,6 @@ func (self *distributionAlgorithm) FairDistribution() {
 
 }
 
-func RoundDivide(num1, num2 int) int {
-
-	return int(math.Round(float64(num1) / float64(num2)))
-}
-func FloorDivide(num1, num2 int) int {
-
-	return int(math.Floor(float64(num1) / float64(num2)))
-}
 func (self *distributionAlgorithm) AssignStudentForCoach(student *models.Student, coach *models.Coach) {
 	coach.AddStudent(student)
 	student.AppendCoach(coach)
