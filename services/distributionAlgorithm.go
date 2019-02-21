@@ -1,6 +1,7 @@
 package services
 
 import (
+	"fmt"
 	"math"
 	"sort"
 	"student-distribution/models"
@@ -39,8 +40,20 @@ func (self *DistributionAlgorithm) BasicDistribution() {
 //problem 2
 func (self *DistributionAlgorithm) FairDistribution() {
 	sort.Sort(sort.Interface(self.Coaches))
+
+	//if first coach students + incomming students =< second coach so return
+
 	coachesNumber := len(self.Coaches)
-	studentsCount := self.CountCoachesStudents() + len(self.Students)
+	studentsNumber := len(self.Students)
+
+	//if coaches numbers = 1
+	//or if first coach students + incomming students =< second coach so return
+	if coachesNumber == 1 || (coachesNumber > 2 && (self.Coaches[0].GetStudentsCount()+studentsNumber) <= self.Coaches[1].GetStudentsCount()) {
+		//first coach will take all students
+		fmt.Println("####### special case")
+		return
+	}
+	studentsCount := self.CountCoachesStudents() + studentsNumber
 
 	studentsPerCoach := RoundDivide(studentsCount, coachesNumber)
 
@@ -57,15 +70,19 @@ func (self *DistributionAlgorithm) FairDistribution() {
 	}
 
 	studentsPerCoach = RoundDivide(studentsCount, unSaturatedCoachesCount)
+
 	studentsIndex := 0
+
 	for j := 0; j < unSaturatedCoachesCount; j++ {
 		coach := self.Coaches[j]
+
 		studentsCountPerCoach := studentsPerCoach - coach.GetStudentsCount()
 
 		//last key will take the change
 		if j == unSaturatedCoachesCount-1 {
 			studentsCountPerCoach = len(self.Students) - studentsIndex
 		}
+		//fmt.Println()
 
 		for i := 0; i < studentsCountPerCoach; i++ {
 			self.AssignStudentForCoach(self.Students[studentsIndex], coach)
@@ -78,6 +95,10 @@ func (self *DistributionAlgorithm) FairDistribution() {
 func RoundDivide(num1, num2 int) int {
 
 	return int(math.Round(float64(num1) / float64(num2)))
+}
+func CeilDivide(num1, num2 int) int {
+
+	return int(math.Ceil(float64(num1) / float64(num2)))
 }
 func (self *DistributionAlgorithm) AssignStudentForCoach(student *models.Student, coach *models.Coach) {
 	coach.AddStudent(student)

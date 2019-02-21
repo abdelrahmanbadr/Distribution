@@ -9,7 +9,7 @@ way to solve it
 8 is greater than  2   -> yes  ->  = 4   the remain
 ----------------------------------------------------------------------
 
-6,6,7   --> number to be distributed 10
+6,7,8   --> number to be distributed 10
 
 way to solve it
  6+7+8 + 10 = 31
@@ -37,3 +37,9 @@ count of yes is 3
  6   ->  3    //need to 3 reach 9
  7   ->  2    //need to 3 reach 9
  8   ->  0   //take the remain
+-------------------------------------------------------------------------
+10,20,1  ------> 6
+10+14+6+3 / 3 = 11
+
+11 is greater than  10 ->  yes ALGorithm failed
+11 is greater than  3 ->   yes
