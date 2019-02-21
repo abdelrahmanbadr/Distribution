@@ -10,14 +10,14 @@ import (
 func main() {
 	//6,7,8,12
 	coaches := fakeCoaches(4)
-	students := fakeStudents(6)
+	students := fakeStudents(4)
 
-	coaches[0].Students = fakeStudents(5)
-	coaches[1].Students = fakeStudents(6)
-	coaches[2].Students = fakeStudents(7)
-	coaches[3].Students = fakeStudents(7)
+	//coaches[0].Students = fakeStudents(1)
+	//coaches[1].Students = fakeStudents(6)
+	//coaches[2].Students = fakeStudents(7)
+	//coaches[3].Students = fakeStudents(2)
 	distributionAlgorithm := services.NewDistributionAlgorithm(students, coaches)
-	distributionAlgorithm.FairDistribution()
+	distributionAlgorithm.BasicDistribution()
 
 	fmt.Println(coaches[0].GetStudentsCount())
 	fmt.Println(coaches[1].GetStudentsCount())
