@@ -95,13 +95,3 @@ func (self *distributionAlgorithm) CountCoachesStudents() int {
 	}
 	return studentCount
 }
-
-func (self *distributionAlgorithm) AssignAllStudentsForFirstCoach() {
-
-	coach := self.Coaches[0]
-	for _, student := range self.Students {
-		coach.Students = append(coach.Students, student)
-		student.Coaches = append(student.Coaches, coach)
-	}
-
-}
